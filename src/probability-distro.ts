@@ -7,7 +7,7 @@ class ProbabilityDistro<TKey>
 {
     public tallies: Map<TKey, number>;
 
-    constructor(private chance: Chance.Chance)
+    constructor()
     {
         this.tallies = new Map<TKey, number>();
     }
@@ -19,22 +19,27 @@ class ProbabilityDistro<TKey>
         return count;
     }
 
-    public getChoice(): TKey
+    public getChoice(chance: Chance.Chance): TKey
     {
         const totalTally = sumIterator(this.tallies.values());
 
-        const dieRoll = this.chance.integer({ min: 0, max: totalTally });
+        const dieRoll = chance.integer({ min: 0, max: totalTally - 1 });
 
         let currentTally = 0;
-        this.tallies.forEach((value, key) => {
-            currentTally += value;
+        const entries = [...this.tallies.entries()];
+
+        for (let i = 0; i < entries.length; i++)
+        {
+            const [key, tally] = entries[i];
+            currentTally += tally;
             if (dieRoll < currentTally)
             {
                 return key;
             }
-        });
+        }
 
-        return null as TKey;
+        // This should not occur!
+        return undefined as TKey;
     }
 }
 

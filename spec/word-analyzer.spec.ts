@@ -1,17 +1,13 @@
-import { Chance } from 'chance';
-
 import { ProbabilityDistro } from '../src/probability-distro';
 import { normalizeWord, WordAnalyzer } from '../src/word-analyzer.js';
 
 describe('WordAnalyzer', () =>
 {
-    let chance: Chance.Chance;
     let analyzer: WordAnalyzer;
 
     beforeEach(() =>
     {
-        chance = new Chance(1553);
-        analyzer = new WordAnalyzer(2, 3, chance);
+        analyzer = new WordAnalyzer(2, 3);
     });
 
     it('can analyze banana', () => {

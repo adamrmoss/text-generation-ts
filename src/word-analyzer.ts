@@ -1,5 +1,3 @@
-import { Chance } from 'chance';
-
 import { ProbabilityDistro } from './probability-distro.js';
 import { failproofLookup } from './maps.js';
 
@@ -8,7 +6,7 @@ class WordAnalyzer
     public analyzedWords: Set<string>;
     public subwordFollowingFrequency: Map<string | null, ProbabilityDistro<string | null>>;
 
-    constructor(public minSubwordLength: number, public maxSubwordLength: number, private chance: Chance.Chance)
+    constructor(public minSubwordLength: number, public maxSubwordLength: number)
     {
         this.analyzedWords = new Set<string>();
         this.subwordFollowingFrequency = new Map<string | null, ProbabilityDistro<string | null>>();
@@ -62,7 +60,7 @@ class WordAnalyzer
     private tallySubwordsFollow(subword1: string | null, subword2: string | null)
     {
         // Default to an empty distro in our failproofLookup
-        const emptyDistro = () => new ProbabilityDistro<string | null>(this.chance);
+        const emptyDistro = () => new ProbabilityDistro<string | null>();
         const distro = failproofLookup(this.subwordFollowingFrequency, subword1, emptyDistro);
         distro.tally(subword2)        
     }
