@@ -1,1 +1,6 @@
-console.log('Hello, World!');
+import { WordAnalyzer } from "./word-analyzer.js";
+
+export
+{
+    WordAnalyzer,
+};

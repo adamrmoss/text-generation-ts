@@ -2,9 +2,10 @@
     "name": "text-generation",
     "version": "0.0.3",
     "description": "Procedural generation of text using Markov n-gram language model",
+    "keywords": ["procedural", "text", "generation", "markov"],
     "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "files": [
         "dist"
     ],
@@ -13,7 +14,7 @@
     },
     "engineStrict": true,
     "scripts": {
-        "start": "npx ts-node src/index.ts",
+        "prepublishOnly": "npm run build",
         "build": "rm -rf dist && tsc --project ./tsconfig.json",
         "test": "npx ts-node --project ./tsconfig-test.json spec/support/run-tests.ts",
         "test-itemized": "npx ts-node --project ./tsconfig-test.json spec/support/run-tests.ts -itemized"
@@ -24,12 +25,12 @@
     "license": "MIT",
     "dependencies": {
         "@types/chance": "^1.1.3",
-        "@types/jasmine": "^4.3.0",
+        "@types/node": "^14.14.31",
         "chalk": "^5.0.1",
         "chance": "^1.1.8"
     },
     "devDependencies": {
-        "@types/node": "^14.14.31",
+        "@types/jasmine": "^4.3.0",
         "jasmine": "^4.4.0",
         "jasmine-itemized-console-reporter": "^0.3.2",
         "ts-node": "^10.9.1",
