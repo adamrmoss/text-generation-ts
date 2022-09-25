@@ -1,7 +1,7 @@
 import { Chance } from 'chance';
 
 import { ProbabilityDistro } from '../src/probability-distro';
-import { WordAnalyzer } from '../src/word-analyzer.js';
+import { normalizeWord, WordAnalyzer } from '../src/word-analyzer.js';
 
 describe('WordAnalyzer', () =>
 {
@@ -132,4 +132,15 @@ describe('WordAnalyzer', () =>
 
         expect(distroEntries).toEqual(expectedDistroEntries);
     }
+});
+
+describe('normalizeWord()', () =>
+{
+    it('removes punctuation and converts to lowercase', () =>
+    {
+        const word = 'A_string-with*Punctuation';
+        const normalizedWord = normalizeWord(word);
+
+        expect(normalizedWord).toBe('astringwithpunctuation');
+    });
 });
