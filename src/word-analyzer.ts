@@ -40,11 +40,18 @@ class WordAnalyzer
 
                 for (
                     let secondSubwordLength = this.minSubwordLength;
-                    secondSubwordLength <= this.maxSubwordLength && secondWordIndex + secondSubwordLength <= word.length;
+                    secondSubwordLength <= this.maxSubwordLength;
                     secondSubwordLength++
                 ) {
-                    const secondSubword = word.substring(secondWordIndex, secondWordIndex + secondSubwordLength);
-                    this.tallySubwordsFollow(firstSubword, secondSubword);
+                    const residueLength = remainingWordLength - secondSubwordLength;
+
+                    // We tally the subword following if we either end the word
+                    // or have enough residue to make another minimal subword
+                    if (residueLength === 0 || residueLength >= this.minSubwordLength)
+                    {
+                        const secondSubword = word.substring(secondWordIndex, secondWordIndex + secondSubwordLength);
+                        this.tallySubwordsFollow(firstSubword, secondSubword);
+                    }
                 }
             }
         }
