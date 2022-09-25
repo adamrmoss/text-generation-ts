@@ -4,12 +4,27 @@ import { failproofLookup } from './maps.js';
 class WordAnalyzer
 {
     public analyzedWords: Set<string>;
-    public subwordFollowingFrequency: Map<string | null, ProbabilityDistro<string | null>>;
+    private subwordFollowingFrequency: Map<string | null, ProbabilityDistro<string | null>>;
 
-    constructor(public minSubwordLength: number, public maxSubwordLength: number)
+    constructor(private minSubwordLength: number, private maxSubwordLength: number)
     {
         this.analyzedWords = new Set<string>();
         this.subwordFollowingFrequency = new Map<string | null, ProbabilityDistro<string | null>>();
+    }
+
+    public get firstSubwords(): (string | null)[]
+    {
+        return [...this.subwordFollowingFrequency.keys()];
+    }
+
+    public getDistro(firstSubword: (string | null)): ProbabilityDistro<string | null>
+    {
+        if (!this.firstSubwords.includes(firstSubword))
+        {
+            console.error(`${firstSubword} is not a valid firstSubword`);
+        }
+
+        return this.subwordFollowingFrequency.get(firstSubword) as ProbabilityDistro<string | null>;
     }
 
     public analyze(word: string)

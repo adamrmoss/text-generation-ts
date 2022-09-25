@@ -13,9 +13,7 @@ describe('WordAnalyzer', () =>
     it('can analyze banana', () => {
         analyzer.analyze('banana');
 
-        const keys = [...analyzer.subwordFollowingFrequency.keys()];
-
-        expect(keys).toEqual([null, 'ba', 'ban', 'an', 'ana', 'na']);
+        expect(analyzer.firstSubwords).toEqual([null, 'ba', 'ban', 'an', 'ana', 'na']);
 
         expectDistroEntries(null, [
             ['ba', 1],
@@ -48,9 +46,9 @@ describe('WordAnalyzer', () =>
     it('can analyze mississippi', () => {
         analyzer.analyze('mississippi');
 
-        const keys = [...analyzer.subwordFollowingFrequency.keys()];
-
-        expect(keys).toEqual([null, 'mi', 'mis', 'is', 'iss', 'ss', 'ssi', 'si', 'sis', 'sip', 'ip', 'ppi', 'pi']);
+        expect(analyzer.firstSubwords).toEqual(
+            [null, 'mi', 'mis', 'is', 'iss', 'ss', 'ssi', 'si', 'sis', 'sip', 'ip', 'ppi', 'pi']
+        );
 
         expectDistroEntries(null, [
             ['mi', 1],
@@ -123,7 +121,7 @@ describe('WordAnalyzer', () =>
         firstSubword: string | null,
         expectedDistroEntries: [string | null, number][]
     ) {
-        const nullDistro = analyzer.subwordFollowingFrequency.get(firstSubword) as ProbabilityDistro<string | null>;
+        const nullDistro = analyzer.getDistro(firstSubword);
         const distroEntries = [...nullDistro.tallies.entries()];
 
         expect(distroEntries).toEqual(expectedDistroEntries);
