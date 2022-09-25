@@ -14,8 +14,9 @@
     "engineStrict": true,
     "scripts": {
         "start": "npx ts-node src/index.ts",
-        "test": "npx ts-node spec/support/run-tests.ts",
-        "test-itemized": "npx ts-node spec/support/run-tests.ts -itemized"
+        "build": "rm -rf dist && tsc --project ./tsconfig.json",
+        "test": "npx ts-node --project ./tsconfig-test.json spec/support/run-tests.ts",
+        "test-itemized": "npx ts-node --project ./tsconfig-test.json spec/support/run-tests.ts -itemized"
     },
     "author": {
         "name": "Adam R Moss"
