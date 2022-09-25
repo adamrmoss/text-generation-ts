@@ -13,7 +13,9 @@
     },
     "engineStrict": true,
     "scripts": {
-        "start": "npx ts-node src/index.ts"
+        "start": "npx ts-node src/index.ts",
+        "test": "npx ts-node spec/support/run-tests.ts",
+        "test-itemized": "npx ts-node spec/support/run-tests.ts -itemized"
     },
     "author": {
         "name": "Adam R Moss"
