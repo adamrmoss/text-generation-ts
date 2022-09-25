@@ -1,5 +1,8 @@
 import { Chance } from 'chance';
 
+import { sumIterator } from './iterable-iterator.js';
+import { failproofLookup } from './maps.js';
+
 class ProbabilityDistro<TKey>
 {
     public tallies: Map<TKey, number>;
@@ -11,15 +14,14 @@ class ProbabilityDistro<TKey>
 
     public tally(key: TKey): number
     {
-        const count = this.failproofLookup(key) + 1;
+        const count = failproofLookup(this.tallies, key, 0) + 1;
         this.tallies.set(key, count);
         return count;
     }
 
     public getChoice(): TKey
     {
-        const totalTally = [...this.tallies.values()]
-            .reduce((prev, curr) => prev + curr, 0);
+        const totalTally = sumIterator(this.tallies.values());
 
         const dieRoll = this.chance.integer({ min: 0, max: totalTally });
 
@@ -33,15 +35,6 @@ class ProbabilityDistro<TKey>
         });
 
         return null as TKey;
-    }
-
-    private failproofLookup(key: TKey): number
-    {
-        if (!this.tallies.has(key))
-        {
-            this.tallies.set(key, 0);
-        }
-        return this.tallies.get(key) as number;
     }
 }
 
