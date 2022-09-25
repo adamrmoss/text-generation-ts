@@ -1,5 +1,5 @@
 import Jasmine from 'jasmine';
-import { itemizedConsoleReporter } from './itemized-console-reporter.js';
+import { itemizedConsoleReporter } from 'jasmine-itemized-console-reporter';
 
 var jasmine = new Jasmine();
 
