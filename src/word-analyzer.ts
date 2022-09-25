@@ -5,8 +5,8 @@ import { failproofLookup } from './maps.js';
 
 class WordAnalyzer
 {
-    private analyzedWords: Set<string>;
-    private subwordFollowingFrequency: Map<string | null, ProbabilityDistro<string | null>>;
+    public analyzedWords: Set<string>;
+    public subwordFollowingFrequency: Map<string | null, ProbabilityDistro<string | null>>;
 
     constructor(public minSubwordLength: number, public maxSubwordLength: number, private chance: Chance.Chance)
     {
@@ -16,7 +16,7 @@ class WordAnalyzer
 
     public analyze(word: string)
     {
-        for (let startIndex = 0; startIndex < word.length - this.minSubwordLength; startIndex++)
+        for (let startIndex = 0; startIndex <= word.length - this.minSubwordLength; startIndex++)
         {
             for (let firstSubwordLength = this.minSubwordLength; firstSubwordLength <= this.maxSubwordLength; firstSubwordLength++)
             {
@@ -24,7 +24,7 @@ class WordAnalyzer
                 const firstSubword = word.substring(startIndex, secondWordIndex);
                 if (startIndex === 0)
                 {
-                    this.tallySubwordsFollow(null, firstSubword);
+                    this.tallySubwordsFollow(null, firstSubword);                    
                 }
 
                 if (secondWordIndex === word.length)
@@ -34,7 +34,7 @@ class WordAnalyzer
 
                 for (
                     let secondSubwordLength = this.minSubwordLength;
-                    secondSubwordLength <= this.maxSubwordLength && secondWordIndex + secondSubwordLength < word.length;
+                    secondSubwordLength <= this.maxSubwordLength && secondWordIndex + secondSubwordLength <= word.length;
                     secondSubwordLength++
                 ) {
                     const secondSubword = word.substring(secondWordIndex, secondWordIndex + secondSubwordLength);

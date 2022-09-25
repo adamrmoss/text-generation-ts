@@ -6,6 +6,7 @@ describe('ProbabilityDistro', () =>
 {
     let chance: Chance.Chance;
     let distro: ProbabilityDistro<string>;
+    
     beforeEach(() =>
     {
         chance = new Chance(1553);
