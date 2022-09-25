@@ -1,12 +1,12 @@
 function failproofLookup<TKey, TValue>(
     map: Map<TKey, TValue>,
     key: TKey,
-    defaultValue: TValue
+    defaultValue: () => TValue
 ): TValue
 {
     if (!map.has(key))
     {
-        map.set(key, defaultValue);
+        map.set(key, defaultValue());
     }
     return map.get(key) as TValue;
 }

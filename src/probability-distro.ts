@@ -14,7 +14,7 @@ class ProbabilityDistro<TKey>
 
     public tally(key: TKey): number
     {
-        const count = failproofLookup(this.tallies, key, 0) + 1;
+        const count = failproofLookup(this.tallies, key, () => 0) + 1;
         this.tallies.set(key, count);
         return count;
     }
