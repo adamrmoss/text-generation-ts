@@ -1,6 +1,6 @@
 import { Chance } from 'chance';
 
-import { ProbabilityDistro } from "./probability-distro.js";
+import { ProbabilityDistro } from './probability-distro.js';
 import { failproofLookup } from './maps.js';
 
 class WordAnalyzer
@@ -70,7 +70,7 @@ class WordAnalyzer
 
 function normalizeWord(word: string)
 {
-    return word.toLowerCase().replaceAll(/[\W_]/g, "");
+    return word.toLowerCase().replaceAll(/[\W_]/g, '');
 }
 
 export

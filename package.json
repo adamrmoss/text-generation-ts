@@ -1,6 +1,6 @@
 {
     "name": "text-generation",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "description": "Procedural generation of text using Markov n-gram language model",
     "keywords": ["procedural", "text", "generation", "markov"],
     "type": "module",
