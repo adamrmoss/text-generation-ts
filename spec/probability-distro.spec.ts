@@ -13,7 +13,7 @@ describe('ProbabilityDistro', () =>
         distro = new ProbabilityDistro(chance);
     });
 
-    it('with several tallies', () =>
+    it('counts several tallies', () =>
     {
         distro.tally('was');
         distro.tally('twas');
