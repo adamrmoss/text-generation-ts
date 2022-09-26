@@ -1,7 +1,7 @@
 import { Chance } from 'chance';
 
-import { ProbabilityDistro } from '../src/probability-distro';
-import { normalizeWord, WordAnalyzer } from '../src/word-analyzer.js';
+import { capitalize } from '../src/strings.js';
+import { WordAnalyzer } from '../src/word-analyzer.js';
 import { WordGenerator } from '../src/word-generator.js';
 
 describe('WordGenerator', () =>
@@ -12,8 +12,8 @@ describe('WordGenerator', () =>
 
     beforeEach(() =>
     {
-        chance = new Chance(1518);
-        analyzer = new WordAnalyzer(3, 4);
+        chance = new Chance(1519);
+        analyzer = new WordAnalyzer(2, 4);
     });
 
     describe('generating states', () =>
@@ -37,15 +37,31 @@ describe('WordGenerator', () =>
 
         it('generates some good states', () =>
         {
-            expect(generateUnique()).toBe('');
-            expect(generateUnique()).toBe('');
-            expect(generateUnique()).toBe('');
-            expect(generateUnique()).toBe('');
-            expect(generateUnique()).toBe('');
-            expect(generateUnique()).toBe('');
-            expect(generateUnique()).toBe('');
-            expect(generateUnique()).toBe('');
+            expect(generateState()).toBe('Tennecticut');
+            expect(generateState()).toBe('Hampshington');
+            expect(generateState()).toBe('Connessee');
+            expect(generateState()).toBe('Ma');
+            expect(generateState()).toBe('Wisconsington');
+            expect(generateState()).toBe('Minnebraska');
+            expect(generateState()).toBe('Massippi');
+            expect(generateState()).toBe('Nebraskansas');
+            expect(generateState()).toBe('Pennsas');
+            expect(generateState()).toBe('Tennesota');
+            expect(generateState()).toBe('Mexiconnecticut');
+            expect(generateState()).toBe('Georegon');
+            expect(generateState()).toBe('Arkansylvania');
+            expect(generateState()).toBe('Connessachusetts');
+            expect(generateState()).toBe('Missippi');
+            expect(generateState()).toBe('Loraska');
+            expect(generateState()).toBe('Wisconnecticut');
+            expect(generateState()).toBe('Alaskansas');
+            expect(generateState()).toBe('Pennsington');
         });
+
+        function generateState(): string
+        {
+            return capitalize(generateUnique());
+        }
     });
 
     function generateUnique(): string

@@ -1,5 +1,6 @@
 import { ProbabilityDistro } from './probability-distro.js';
 import { failproofLookup } from './maps.js';
+import { getStringPartitions } from './number-partition.js';
 
 class WordAnalyzer
 {
@@ -36,49 +37,35 @@ class WordAnalyzer
     {
         word = normalizeWord(word);
         const normalizedMinSubwordLength = Math.min(this.minSubwordLength, word.length);
+        const normalizedMaxSubwordLength = Math.min(this.maxSubwordLength, word.length);
 
-        for (let startIndex = 0; startIndex <= word.length - normalizedMinSubwordLength; startIndex++)
-        {
-            for (let firstSubwordLength = normalizedMinSubwordLength; firstSubwordLength <= this.maxSubwordLength; firstSubwordLength++)
+        const stringPartitions = getStringPartitions(word, normalizedMinSubwordLength, normalizedMaxSubwordLength);
+
+        stringPartitions.forEach(stringPartition =>
             {
-                const secondWordIndex = startIndex + firstSubwordLength;
-                const remainingWordLength = word.length - secondWordIndex;
-                const firstSubword = word.substring(startIndex, secondWordIndex);
-
-                // Does this subword start the word?
-                if (
-                    startIndex === 0 &&
-                    (
-                        remainingWordLength === 0 ||
-                        remainingWordLength >= normalizedMinSubwordLength
-                    )
-                ) {
-                    this.tallySubwordsFollow(null, firstSubword);                    
-                }
-
-                // Does this subword end the word?
-                if (remainingWordLength === 0)
+                for (let i = 0; i < stringPartition.length; i++)
                 {
-                    this.tallySubwordsFollow(firstSubword, null);
-                }
+                    const firstSubword = stringPartition[i];
 
-                for (
-                    let secondSubwordLength = normalizedMinSubwordLength;
-                    secondSubwordLength <= this.maxSubwordLength;
-                    secondSubwordLength++
-                ) {
-                    const residueLength = remainingWordLength - secondSubwordLength;
-
-                    // We tally the subword following if we either end the word
-                    // or have enough residue to make another minimal subword
-                    if (residueLength === 0 || residueLength >= normalizedMinSubwordLength)
+                    // Does this subword start the word?
+                    if (i === 0)
                     {
-                        const secondSubword = word.substring(secondWordIndex, secondWordIndex + secondSubwordLength);
+                        this.tallySubwordsFollow(null, firstSubword);
+                    }
+
+                    if (i < stringPartition.length - 1)
+                    {
+                        const secondSubword = stringPartition[i + 1];
                         this.tallySubwordsFollow(firstSubword, secondSubword);
                     }
+
+                    // Does this subword end the word?
+                    if (i === stringPartition.length - 1)
+                    {
+                        this.tallySubwordsFollow(firstSubword, null);
+                    }
                 }
-            }
-        }
+            });
 
         this.analyzedWords.add(word);
     }

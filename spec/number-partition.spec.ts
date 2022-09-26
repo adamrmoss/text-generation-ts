@@ -1,5 +1,5 @@
 
-import { getClampedNumberPartitions, getNumberPartitions } from '../src/number-partition.js';
+import { getClampedNumberPartitions, getNumberPartitions, getStringPartitions } from '../src/number-partition.js';
 
 describe('getNumberPartitions', () =>
 {
@@ -49,7 +49,7 @@ describe('getNumberPartitions', () =>
     {
         it(`should be [
             [5], [4 + 1], [3 + 2], [3 + 1 + 1], [2 + 3], [2 + 2 + 1], [2 + 1 + 2], [2 + 1 + 1 + 1], [1 + 4],
-                [1 + 3 + 1], [1 + 2 + 2], [1 + 2 + 1 + 1], [1 + 1 + 3], [1 + 1 + 2 + 1], [1 + 1 + 1 + 2], [1 + 1 + 1 + 1 + 1]
+            [1 + 3 + 1], [1 + 2 + 2], [1 + 2 + 1 + 1], [1 + 1 + 3], [1 + 1 + 2 + 1], [1 + 1 + 1 + 2], [1 + 1 + 1 + 1 + 1]
         ]`, () =>
         {
             const expectedPartitions = [
@@ -87,6 +87,21 @@ describe('getClampedNumberPartitions', () =>
                 [ 3, 3, 2 ], [ 3, 2, 3 ], [ 2, 3, 3 ], [ 2, 2, 2, 2 ]
             ];
             expect(getClampedNumberPartitions(8, 2, 3)).toEqual(expectedPartitions);
+        });
+    });
+});
+
+describe('getStringPartitions', () =>
+{
+    describe(`('Hampshire', 3, 4)`, () =>
+    {
+        it('should be []', () =>
+        {
+            const expectedSubstrings =
+            [
+                ['Ham', 'psh', 'ire']
+            ];
+            expect(getStringPartitions('Hampshire', 3, 4)).toEqual(expectedSubstrings);
         });
     });
 });

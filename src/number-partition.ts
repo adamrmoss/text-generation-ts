@@ -1,8 +1,7 @@
 import memoize from 'memoizee';
 
-import { sumArray } from './iterable-iterator.js';
-
 type NumberPartition = number[];
+type StringPartition = string[];
 
 function getClampedNumberPartitions(n: number, min: number, max: number)
     : NumberPartition[]
@@ -41,31 +40,29 @@ function getNumberPartitions(n: number): NumberPartition[]
     return partitions;
 }
 
-function partitionString(partition: NumberPartition, text: string): string[]
+function getStringPartitions(text: string, min: number, max: number): StringPartition[]
 {
-    const partitionedString: string[] = [];
+    const numberPartitions = getClampedNumberPartitions(text.length, min, max);
 
-    const partitionTotal = sumArray(partition);
-    if (partitionTotal !== text.length)
-    {
-        throw 'Partition is different length than text';
-    }
+    return numberPartitions.map(partition => {
+        const partitionedString: string[] = [];
 
-    let substringStart = 0;
-    for (let i = 0; i < partition.length; i++)
-    {
-        const substringLength = partition[i];
-        partitionedString.push(text.substring(substringStart, substringStart + substringLength));
+        let substringStart = 0;
+        for (let i = 0; i < partition.length; i++)
+        {
+            const substringLength = partition[i];
+            partitionedString.push(text.substring(substringStart, substringStart + substringLength));
 
-        substringStart += substringLength;
-    }
+            substringStart += substringLength;
+        }
 
-    return partitionedString;
+        return partitionedString;
+    });
 }
 
 export
 {
     getClampedNumberPartitions,
     getNumberPartitions,
-    partitionString,
+    getStringPartitions,
 };
