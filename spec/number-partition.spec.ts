@@ -1,5 +1,5 @@
 
-import { getNumberPartitions } from '../src/number-partition.js';
+import { getClampedNumberPartitions, getNumberPartitions } from '../src/number-partition.js';
 
 describe('getNumberPartitions', () =>
 {
@@ -59,6 +59,28 @@ describe('getNumberPartitions', () =>
                 [1, 1, 1, 1, 1], [1, 2, 2], [2, 2, 1], [2, 3], [3, 2], [2, 1, 2]
             ];
             expect(getNumberPartitions(5)).toEqual(expectedPartitions);
+        });
+    });
+
+    describe('(12)', () =>
+    {
+        it('should be possible', () =>
+        {
+            console.log(getNumberPartitions(12).length);
+        });
+    });
+});
+
+describe('getClampedNumberPartitions', () =>
+{
+    describe('(8, 2, 3)', () =>
+    {
+        it('should be [[ 2 + 2 + 2 + 2 ], [ 2 + 3 + 3 ], [ 3 + 3 + 2 ], [ 3 + 2 + 3 ]]', () =>
+        {
+            const expectedPartitions = [
+                [ 2, 2, 2, 2 ], [ 2, 3, 3 ], [ 3, 3, 2 ], [ 3, 2, 3 ]
+            ];
+            expect(getClampedNumberPartitions(8, 2, 3)).toEqual(expectedPartitions);
         });
     });
 });

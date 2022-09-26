@@ -3,6 +3,16 @@ import { SetWithEquality } from './set-with-equality.js';
 
 type NumberPartition = number[];
 
+function getClampedNumberPartitions(n: number, min: number, max: number)
+    : NumberPartition[]
+{
+    const allNumberPartitions = getNumberPartitions(n);
+    const clampedNumberPartitions = allNumberPartitions.filter(
+        partition => partition.every(value => min <= value && value <= max)
+    );
+    return clampedNumberPartitions;
+}
+
 function getNumberPartitions(n: number): NumberPartition[]
 {
     n = Math.floor(n);
@@ -18,12 +28,12 @@ function getNumberPartitions(n: number): NumberPartition[]
     }
 
     const partitions = new SetWithEquality<NumberPartition>(jsonEquals);
+    partitions.add([n]);
     for (let i = 1; i < n; i++)
     {
-        const previousPartitions = getNumberPartitions(n - i);
-        const newPartitions: NumberPartition[] = [[n], ...previousPartitions.flatMap(partition => [[i, ...partition], [...partition, i]])];
-
-        newPartitions.forEach(partition => partitions.add(partition));
+        getNumberPartitions(n - i)
+            .flatMap(partition => [[i, ...partition], [...partition, i]])
+            .forEach(partition => partitions.add(partition));
     }
 
     return [...partitions];
@@ -31,5 +41,6 @@ function getNumberPartitions(n: number): NumberPartition[]
 
 export
 {
+    getClampedNumberPartitions,
     getNumberPartitions,
 };
