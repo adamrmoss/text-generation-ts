@@ -1,3 +1,5 @@
+import memoize from 'memoizee';
+
 import { jsonEquals } from './json-equals.js';
 import { SetWithEquality } from './set-with-equality.js';
 
@@ -12,6 +14,8 @@ function getClampedNumberPartitions(n: number, min: number, max: number)
     );
     return clampedNumberPartitions;
 }
+
+const memoizedGetNumberPartitions = memoize(getNumberPartitions);
 
 function getNumberPartitions(n: number): NumberPartition[]
 {

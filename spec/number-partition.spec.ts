@@ -69,6 +69,22 @@ describe('getNumberPartitions', () =>
             console.log(getNumberPartitions(12).length);
         });
     });
+
+    describe('(13)', () =>
+    {
+        it('should be possible', () =>
+        {
+            console.log(getNumberPartitions(13).length);
+        });
+    });
+
+    describe('(14)', () =>
+    {
+        it('should be possible', () =>
+        {
+            console.log(getNumberPartitions(14).length);
+        });
+    });
 });
 
 describe('getClampedNumberPartitions', () =>
