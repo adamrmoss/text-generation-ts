@@ -1,8 +1,6 @@
 import Jasmine from 'jasmine';
 import { itemizedConsoleReporter } from 'jasmine-itemized-console-reporter';
 
-console.log(process.argv);
-
 var jasmine = new Jasmine();
 
 jasmine.loadConfigFile('spec/support/jasmine.json');
