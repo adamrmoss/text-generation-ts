@@ -27,32 +27,43 @@ class WordAnalyzer
         return this.subwordFollowingFrequency.get(firstSubword) as ProbabilityDistro<string | null>;
     }
 
-    public analyze(word: string)
+    public analyzeWords(words: string[])
+    {
+        words.forEach(word => this.analyzeWord(word));
+    }
+
+    public analyzeWord(word: string)
     {
         word = normalizeWord(word);
+        const normalizedMinSubwordLength = Math.min(this.minSubwordLength, word.length);
 
-        for (let startIndex = 0; startIndex <= word.length - this.minSubwordLength; startIndex++)
+        for (let startIndex = 0; startIndex <= word.length - normalizedMinSubwordLength; startIndex++)
         {
-            for (let firstSubwordLength = this.minSubwordLength; firstSubwordLength <= this.maxSubwordLength; firstSubwordLength++)
+            for (let firstSubwordLength = normalizedMinSubwordLength; firstSubwordLength <= this.maxSubwordLength; firstSubwordLength++)
             {
                 const secondWordIndex = startIndex + firstSubwordLength;
+                const remainingWordLength = word.length - secondWordIndex;
                 const firstSubword = word.substring(startIndex, secondWordIndex);
 
                 // Does this subword start the word?
-                if (startIndex === 0)
-                {
+                if (
+                    startIndex === 0 &&
+                    (
+                        remainingWordLength === 0 ||
+                        remainingWordLength >= normalizedMinSubwordLength
+                    )
+                ) {
                     this.tallySubwordsFollow(null, firstSubword);                    
                 }
 
                 // Does this subword end the word?
-                const remainingWordLength = word.length - secondWordIndex;
                 if (remainingWordLength === 0)
                 {
                     this.tallySubwordsFollow(firstSubword, null);
                 }
 
                 for (
-                    let secondSubwordLength = this.minSubwordLength;
+                    let secondSubwordLength = normalizedMinSubwordLength;
                     secondSubwordLength <= this.maxSubwordLength;
                     secondSubwordLength++
                 ) {
@@ -60,7 +71,7 @@ class WordAnalyzer
 
                     // We tally the subword following if we either end the word
                     // or have enough residue to make another minimal subword
-                    if (residueLength === 0 || residueLength >= this.minSubwordLength)
+                    if (residueLength === 0 || residueLength >= normalizedMinSubwordLength)
                     {
                         const secondSubword = word.substring(secondWordIndex, secondWordIndex + secondSubwordLength);
                         this.tallySubwordsFollow(firstSubword, secondSubword);
