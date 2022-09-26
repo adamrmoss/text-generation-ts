@@ -29,18 +29,18 @@ describe('getNumberPartitions', () =>
 
     describe('(3)', () =>
     {
-        it('should be [[3], [1 + 2], [2 + 1], [1 + 1 + 1]]', () =>
+        it('should be [[3], [2 + 1], [1 + 2], [1 + 1 + 1]]', () =>
         {
-            const expectedPartitions = [[3], [1, 2], [2, 1], [1, 1, 1]];
+            const expectedPartitions = [[3], [2, 1], [1, 2], [1, 1, 1]];
             expect(getNumberPartitions(3)).toEqual(expectedPartitions);
         });
     });
 
     describe('(4)', () =>
     {
-        it('should be [[4], [1 + 3], [3 + 1], [1 + 1 + 2], [1 + 2 + 1], [2 + 1 + 1], [1 + 1 + 1 + 1], [2 + 2]]', () =>
+        it('should be [[4], [3 + 1], [2 + 2], [2 + 1 + 1], [1 + 3], [1 + 2 + 1], [1 + 1 + 2], [1 + 1 + 1 + 1]]', () =>
         {
-            const expectedPartitions = [[4], [1, 3], [3, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1], [1, 1, 1, 1], [2, 2]];
+            const expectedPartitions = [[4], [3, 1], [2, 2], [2, 1, 1], [1, 3], [1, 2, 1], [1, 1, 2], [1, 1, 1, 1]];
             expect(getNumberPartitions(4)).toEqual(expectedPartitions);
         });
     });
@@ -48,15 +48,13 @@ describe('getNumberPartitions', () =>
     describe('(5)', () =>
     {
         it(`should be [
-            [5], [1 + 4], [4 + 1], [1 + 1 + 3], [1 + 3 + 1], [3 + 1 + 1],
-            [1 + 1 + 1 + 2], [1 + 1 + 2 + 1], [1 + 2 + 1 + 1], [2 + 1 + 1 + 1],
-            [1 + 1 + 1 + 1 + 1], [1 + 2 + 2], [2 + 2 + 1], [2 + 3], [3 + 2], [2 + 1 + 2]
+            [5], [4 + 1], [3 + 2], [3 + 1 + 1], [2 + 3], [2 + 2 + 1], [2 + 1 + 2], [2 + 1 + 1 + 1], [1 + 4],
+                [1 + 3 + 1], [1 + 2 + 2], [1 + 2 + 1 + 1], [1 + 1 + 3], [1 + 1 + 2 + 1], [1 + 1 + 1 + 2], [1 + 1 + 1 + 1 + 1]
         ]`, () =>
         {
             const expectedPartitions = [
-                [5], [1, 4], [4, 1], [1, 1, 3], [1, 3, 1], [3, 1, 1],
-                [1, 1, 1, 2], [1, 1, 2, 1], [1, 2, 1, 1], [2, 1, 1, 1],
-                [1, 1, 1, 1, 1], [1, 2, 2], [2, 2, 1], [2, 3], [3, 2], [2, 1, 2]
+                [5], [4, 1], [3, 2], [3, 1, 1], [2, 3], [2, 2, 1], [2, 1, 2], [2, 1, 1, 1], [1, 4],
+                [1, 3, 1], [1, 2, 2], [1, 2, 1, 1], [1, 1, 3], [1, 1, 2, 1], [1, 1, 1, 2], [1, 1, 1, 1, 1]
             ];
             expect(getNumberPartitions(5)).toEqual(expectedPartitions);
         });
@@ -66,23 +64,15 @@ describe('getNumberPartitions', () =>
     {
         it('should be possible', () =>
         {
-            console.log(getNumberPartitions(12).length);
+            getNumberPartitions(12);
         });
     });
 
-    describe('(13)', () =>
+    describe('(20)', () =>
     {
         it('should be possible', () =>
         {
-            console.log(getNumberPartitions(13).length);
-        });
-    });
-
-    describe('(14)', () =>
-    {
-        it('should be possible', () =>
-        {
-            console.log(getNumberPartitions(14).length);
+            getNumberPartitions(20);
         });
     });
 });
@@ -91,10 +81,10 @@ describe('getClampedNumberPartitions', () =>
 {
     describe('(8, 2, 3)', () =>
     {
-        it('should be [[ 2 + 2 + 2 + 2 ], [ 2 + 3 + 3 ], [ 3 + 3 + 2 ], [ 3 + 2 + 3 ]]', () =>
+        it('should be [[ 3 + 3 + 2 ], [ 3 + 2 + 3 ], [ 2 + 3 + 3 ], [ 2 + 2 + 2 + 2 ]]', () =>
         {
             const expectedPartitions = [
-                [ 2, 2, 2, 2 ], [ 2, 3, 3 ], [ 3, 3, 2 ], [ 3, 2, 3 ]
+                [ 3, 3, 2 ], [ 3, 2, 3 ], [ 2, 3, 3 ], [ 2, 2, 2, 2 ]
             ];
             expect(getClampedNumberPartitions(8, 2, 3)).toEqual(expectedPartitions);
         });

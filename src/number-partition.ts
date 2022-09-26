@@ -31,16 +31,15 @@ function getNumberPartitions(n: number): NumberPartition[]
         return [[1]];
     }
 
-    const partitions = new SetWithEquality<NumberPartition>(jsonEquals);
-    partitions.add([n]);
+    const partitions = [[n]]
     for (let i = 1; i < n; i++)
     {
-        getNumberPartitions(n - i)
-            .flatMap(partition => [[i, ...partition], [...partition, i]])
-            .forEach(partition => partitions.add(partition));
+        const firstPartite = n - i;
+        const remainderPartitions = memoizedGetNumberPartitions(i);
+        remainderPartitions.forEach(partition => partitions.push([firstPartite, ...partition]));
     }
 
-    return [...partitions];
+    return partitions;
 }
 
 export
