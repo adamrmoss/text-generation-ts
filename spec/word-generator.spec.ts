@@ -174,7 +174,7 @@ describe('WordGenerator', () =>
             }
         }
 
-        throw 'Failed to Generate';
+        throw new Error('Failed to Generate');
     }
 });
 

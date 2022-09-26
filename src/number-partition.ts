@@ -1,7 +1,7 @@
-import memoize from 'memoizee';
-
 type NumberPartition = number[];
 type StringPartition = string[];
+
+const maximalSize = 20;
 
 function getClampedNumberPartitions(n: number, min: number, max: number)
     : NumberPartition[]
@@ -13,27 +13,25 @@ function getClampedNumberPartitions(n: number, min: number, max: number)
     return clampedNumberPartitions;
 }
 
-const memoizedGetNumberPartitions = memoize(getNumberPartitions);
-
 function getNumberPartitions(n: number): NumberPartition[]
 {
-    n = Math.floor(n);
+    n = Math.trunc(n);
 
-    if (n === 0)
+    if (n > maximalSize)
     {
-        return [[0]];
+        throw new Error(`getNumberPartitions(${n}) exceeds maximal size of n=${maximalSize}`);
     }
 
-    if (n === 1)
+    if (n <= 0)
     {
-        return [[1]];
+        return [];
     }
 
     const partitions = [[n]]
     for (let i = 1; i < n; i++)
     {
         const firstPartite = n - i;
-        const remainderPartitions = memoizedGetNumberPartitions(i);
+        const remainderPartitions = getNumberPartitions(i);
         remainderPartitions.forEach(partition => partitions.push([firstPartite, ...partition]));
     }
 
@@ -65,4 +63,5 @@ export
     getClampedNumberPartitions,
     getNumberPartitions,
     getStringPartitions,
+    maximalSize,
 };
