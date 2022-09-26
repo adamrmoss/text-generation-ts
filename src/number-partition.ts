@@ -1,7 +1,6 @@
 import memoize from 'memoizee';
 
-import { jsonEquals } from './json-equals.js';
-import { SetWithEquality } from './set-with-equality.js';
+import { sumArray } from './iterable-iterator.js';
 
 type NumberPartition = number[];
 
@@ -42,8 +41,31 @@ function getNumberPartitions(n: number): NumberPartition[]
     return partitions;
 }
 
+function partitionString(partition: NumberPartition, text: string): string[]
+{
+    const partitionedString: string[] = [];
+
+    const partitionTotal = sumArray(partition);
+    if (partitionTotal !== text.length)
+    {
+        throw 'Partition is different length than text';
+    }
+
+    let substringStart = 0;
+    for (let i = 0; i < partition.length; i++)
+    {
+        const substringLength = partition[i];
+        partitionedString.push(text.substring(substringStart, substringStart + substringLength));
+
+        substringStart += substringLength;
+    }
+
+    return partitionedString;
+}
+
 export
 {
     getClampedNumberPartitions,
     getNumberPartitions,
+    partitionString,
 };

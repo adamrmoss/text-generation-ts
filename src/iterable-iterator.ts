@@ -1,10 +1,15 @@
+function sumArray(array: number[]): number
+{
+    return array.reduce((prev, curr) => prev + curr, 0);
+}
+
 function sumIterator(iterator: IterableIterator<number>): number
 {
-    return [...iterator]
-        .reduce((prev, curr) => prev + curr, 0);
+    return sumArray([...iterator]);
 }
 
 export
 {
+    sumArray,
     sumIterator,
 };
