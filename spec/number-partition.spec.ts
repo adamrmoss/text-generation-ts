@@ -40,6 +40,7 @@ describe('getNumberPartitions', () =>
     {
         it('should be [[4], [3 + 1], [2 + 2], [1 + 3], [2 + 1 + 1], [1 + 2 + 1], [1 + 1 + 2], [1 + 1 + 1 + 1]]', () =>
         {
+            console.log(getNumberPartitions(4));
             const expectedPartitions = [[4], [3 + 1], [2 + 2], [1 + 3], [2 + 1 + 1], [1 + 2 + 1], [1 + 1 + 2], [1 + 1 + 1 + 1]];
             expect(getNumberPartitions(4)).toEqual(expectedPartitions);
         });
