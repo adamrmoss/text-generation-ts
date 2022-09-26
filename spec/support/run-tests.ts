@@ -5,6 +5,9 @@ var jasmine = new Jasmine();
 
 jasmine.loadConfigFile('spec/support/jasmine.json');
 
+const random = process.argv.includes('-randomized');
+jasmine.loadConfig({ random });
+
 if (process.argv.includes('-itemized'))
 {
     jasmine.clearReporters();
