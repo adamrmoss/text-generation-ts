@@ -6,6 +6,7 @@ import { WordGenerator } from '../src/word-generator.js';
 
 describe('WordGenerator', () =>
 {
+    const maxFailedAttempts = 10240;
     let chance: Chance.Chance;
     let analyzer: WordAnalyzer;
     let generator: WordGenerator;
@@ -100,19 +101,16 @@ describe('WordGenerator', () =>
             const sampleContinents =
             [
                 'Acheron', 'Africa', 'America', 'Arborea', 'Arcadia', 'Arctica', 'Asgard', 'Asia',
-                'Atlantica', 'Atlantis', 'Australia', 'Avalonia', 'Baltica', 'Brittain',
-                'Caledonia', 'California', 'Celestia', 'Cherokee', 'China', 'Cimmeria',
-                'Cincinnati', 'Columbia', 'Congo', 'EarthSea', 'Echo', 'Ecotopia', 'Elfheim',
-                'Elysium', 'Eriador', 'Europa', 'Europe', 'Freedonia', 'Gondwana', 'Harbor',
-                'Harbour', 'Hinterland', 'Hyrule', 'India', 'Inuit', 'Islandia', 'Jotunheim',
-                'Kalaharia', 'Kazakhstania', 'Kenorland', 'Kerguelia', 'Kumaria', 'Kush',
-                'Laurasia', 'Laurentia', 'Lemuria', 'Limbo', 'Meropis', 'Midgard', 'Narnia',
-                'Navajo', 'Nena', 'Nevada', 'Niflheim', 'Oceania', 'Pacifica', 'Pangaea',
-                'Pannotia', 'Persia', 'Rodinia', 'Siberia', 'Siniscalchi', 'Utah', 'Vaalbara',
-                'Yangon', 'Zealandia'
+                'Atlantica', 'Atlantis', 'Australia', 'Avalonia', 'Baltica', 'Caledonia',
+                'California', 'Celestia', 'China', 'Cimmeria', 'Columbia', 'Ecotopia', 
+                'Elysium', 'Eriador', 'Europa', 'Freedonia', 'Gondwana',  'Hyrule', 'India',
+                'Islandia', 'Kalaharia', 'Kazakhstania', 'Kenorland', 'Kerguelia', 'Kumaria',
+                'Laurasia', 'Laurentia', 'Lemuria', 'Limbo', 'Narnia', 'Northumbria', 'Oceania',
+                'Pacifica', 'Pangaea', 'Pannotia', 'Persia', 'Rodinia', 'Siberia', 'Vaalbara',
+                'Zealandia'
             ];
 
-            analyzer = new WordAnalyzer(2, 3);
+            analyzer = new WordAnalyzer(2, 5);
             analyzer.analyzeWords(sampleContinents);
             generator = new WordGenerator(analyzer, chance);
         });
@@ -123,15 +121,23 @@ describe('WordGenerator', () =>
 
             const expectedContinents =
             [
-                'Jo', 'Arcti', 'Ameria', 'Arbor',  'Cincincincinnati', 'Hintia', 'Meria',
-                'Atlandwana', 'Merodinia', 'Austantis', 'Inuittania', 'Kalaharctica',
-                'Austandia', 'Acheria', 'Sinislauria', 'Na', 'Kazakhsearthsea', 'Islania',
-                'Cinnatica', 'Hinterlandia', 'Ea', 'Hi', 'Brittainia', 'Land', 'Erlantia',
-                'Kumarcadia', 'Africadia', 'Siberlandia', 'Sium', 'Harborea',
-                'Arborearthstania', 'Siniscalemuria', 'Cheria', 'Siniscalifornia',
-                'Siniscalifica', 'Brittainnaticalimbo',  'Ca', 'Utaharcalemuria', 'Elia',
-                'Utaharca', 'Califor', 'Free', 'Atlaurasgaea', 'Kazakhstia', 'Kazakhstrasia',
-                'Lantica', 'Sinislantis', 'Pangonia', 'Africalestia', 'Limbourentia'
+                'Elia',           'Caledon',        'Na',
+                'Atland',         'Celestra',       'Atlaurasia',
+                'Kalaharborea',   'Atlandwana',     'Acheronia',
+                'Kalaharcadia',   'Landia',         'Laura',
+                'Kazakhstia',     'Kazakhstra',     'Ca',
+                'Kumarborea',     'Is',             'Kazakhstantis',
+                'Landwana',       'Eria',           'Atlaurasgard',
+                'Africaledonia',  'Norland',        'Pacificalifornia',
+                'Aria',           'Ameria',         'Atlandia',
+                'Europannotopia', 'Pacimmeria',     'Kenorthumbria',
+                'Lantica',        'Kenorlaurasia',  'Atlania',
+                'Zealand',        'Siumbria',       'Vaalia',
+                'Elysiumbria',    'Islaurentia',    'Rodindia',
+                'Pa',             'Kenorlandwana',  'Europannotia',
+                'Arbornia',       'Califorland',    'Kenorthumbia',
+                'Ariador',        'Kenorlandiador', 'Lanticalimbo',
+                'Columbria',      'Lifornia'
             ];
 
             expect(generatedContinents).toEqual(expectedContinents);
@@ -157,16 +163,18 @@ describe('WordGenerator', () =>
 
     function generateUnique(): string
     {
-        const previouslyGeneratedWords = [...generator.generatedWords];
-        const generatedWord = generator.generateWord();
-
-        // Try again if we did not generate a new word
-        if (previouslyGeneratedWords.includes(generatedWord))
+        for (let i = 0; i < maxFailedAttempts; i++)
         {
-            return generateUnique();
+            const previouslyGeneratedWords = [...generator.generatedWords];
+            const generatedWord = generator.generateWord();
+
+            if (!previouslyGeneratedWords.includes(generatedWord))
+            {
+                return generatedWord;
+            }
         }
 
-        return generatedWord;
+        throw 'Failed to Generate';
     }
 });
 
