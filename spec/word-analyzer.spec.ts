@@ -1,133 +1,189 @@
-import { Chance } from 'chance';
-
-import { ProbabilityDistro } from '../src/probability-distro';
+import { getStringPartitions } from '../src/number-partition.js';
 import { normalizeWord, WordAnalyzer } from '../src/word-analyzer.js';
 
 describe('WordAnalyzer', () =>
 {
-    let chance: Chance.Chance;
     let analyzer: WordAnalyzer;
 
-    beforeEach(() =>
+    describe('with small chunks', () =>
     {
-        chance = new Chance(1553);
-        analyzer = new WordAnalyzer(2, 3, chance);
+        beforeEach(() =>
+        {
+            analyzer = new WordAnalyzer(2, 3);
+        });
+
+        it('can analyze banana', () => {
+            analyzer.analyzeWord('banana');
+
+            expect(analyzer.firstSubwords).toEqual([null, 'ban', 'ana', 'ba', 'na']);
+
+            expectDistroEntries(null, [
+                ['ban', 1],
+                ['ba', 1],
+            ]);
+
+            expectDistroEntries('ban', [
+                ['ana', 1],
+            ]);
+
+            expectDistroEntries('ana', [
+                [null, 1],
+            ]);
+
+            expectDistroEntries('ba', [
+                ['na', 1],
+            ]);
+
+            expectDistroEntries('na', [
+                ['na', 1],
+                [null, 1],
+            ]);
+        });
+
+        it('can analyze mississippi', () => {
+            analyzer.analyzeWord('mississippi');
+                        
+            expect(analyzer.firstSubwords).toEqual(
+                [null, 'mis', 'sis', 'sip', 'pi', 'si', 'ppi', 'ssi', 'ss', 'ip', 'mi', 'iss', 'is']
+            );
+
+            expectDistroEntries(null, [
+                ['mis', 4],
+                ['mi', 5],
+            ]);
+
+            expectDistroEntries('mis', [
+                ['sis', 2],
+                ['si', 2],
+            ]);
+
+            expectDistroEntries('sis', [
+                ['sip', 1],
+                ['si', 1],
+            ]);
+
+            expectDistroEntries('sip', [
+                ['pi', 2],
+            ]);
+
+            expectDistroEntries('pi', [
+                [null, 5],
+            ]);
+
+            expectDistroEntries('si', [
+                ['ppi', 2],
+                ['ssi', 1],
+                ['ss', 1],
+            ]);
+
+            expectDistroEntries('ppi', [
+                [null, 4],
+            ]);
+
+            expectDistroEntries('ssi', [
+                ['ppi', 2],
+                ['ssi', 1],
+                ['ss', 1],
+            ]);
+
+            expectDistroEntries('ss', [
+                ['ip', 2],
+                ['iss', 1],
+                ['is', 2],
+            ]);
+
+            expectDistroEntries('ip', [
+                ['pi', 3],
+            ]);
+
+            expectDistroEntries('mi', [
+                ['ssi', 2],
+                ['ss', 3],
+            ]);
+
+            expectDistroEntries('iss', [
+                ['ip', 1],
+            ]);
+
+            expectDistroEntries('is', [
+                ['sip', 1],
+                ['si', 1],
+            ]);
+        });
     });
 
-    it('can analyze banana', () => {
-        analyzer.analyze('banana');
+    describe('with medium chunks', () =>
+    {
+        beforeEach(() =>
+        {
+            analyzer = new WordAnalyzer(2, 4);
+        });
 
-        const keys = [...analyzer.subwordFollowingFrequency.keys()];
+        it('can analyze Idaho', () => {
+            analyzer.analyzeWord('Idaho');
 
-        expect(keys).toEqual([null, 'ba', 'ban', 'an', 'ana', 'na']);
+            expect(analyzer.firstSubwords).toEqual([null, 'ida', 'ho', 'id', 'aho']);
 
-        expectDistroEntries(null, [
-            ['ba', 1],
-            ['ban', 1]
-        ]);
+            expectDistroEntries(null, [
+                ['ida', 1],
+                ['id', 1],
+            ]);
 
-        expectDistroEntries('ba', [
-            ['na', 1],
-        ]);
+            expectDistroEntries('ida', [
+                ['ho', 1],
+            ]);
 
-        expectDistroEntries('ban', [
-            ['ana', 1],
-        ]);
+            expectDistroEntries('ho', [
+                [null, 1],
+            ]);
 
-        expectDistroEntries('an', [
-            ['ana', 1],
-        ]);
+            expectDistroEntries('id', [
+                ['aho', 1],
+            ]);
 
-        expectDistroEntries('ana', [
-            ['na', 1],
-            [null, 1]
-        ]);
+            expectDistroEntries('aho', [
+                [null, 1],
+            ]);
+        });
 
-        expectDistroEntries('na', [
-            ['na', 1],
-            [null, 1]
-        ]);
     });
 
-    it('can analyze mississippi', () => {
-        analyzer.analyze('mississippi');
+    describe('with similar medium chunks', () =>
+    {
+        beforeEach(() =>
+        {
+            analyzer = new WordAnalyzer(3, 4);
+        });
 
-        const keys = [...analyzer.subwordFollowingFrequency.keys()];
+        it('can analyze Hampshire', () => {
+            analyzer.analyzeWord('Hampshire');
 
-        expect(keys).toEqual([null, 'mi', 'mis', 'is', 'iss', 'ss', 'ssi', 'si', 'sis', 'sip', 'ip', 'ppi', 'pi']);
+            expect(analyzer.firstSubwords).toEqual([null, 'ham', 'psh', 'ire']);
 
-        expectDistroEntries(null, [
-            ['mi', 1],
-            ['mis', 1],
-        ]);
+            expectDistroEntries(null, [
+                ['ham', 1],
+            ]);
 
-        expectDistroEntries('mi', [
-            ['ss', 1],
-            ['ssi', 1],
-        ]);
+            expectDistroEntries('ham', [
+                ['psh', 1],
+            ]);
 
-        expectDistroEntries('mis', [
-            ['si', 1],
-            ['sis', 1],
-        ]);
+            expectDistroEntries('psh', [
+                ['ire', 1],
+            ]);
 
-        expectDistroEntries('is', [
-            ['si', 2],
-            ['sis', 1],
-            ['sip', 1],
-        ]);
+            expectDistroEntries('ire', [
+                [null, 1],
+            ]);
+        });
 
-        expectDistroEntries('iss', [
-            ['is', 1],
-            ['iss', 1],
-            ['ip', 1],
-        ]);
-
-        expectDistroEntries('ss', [
-            ['is', 1],
-            ['iss', 1],
-            ['ip', 1],
-        ]);
-
-        expectDistroEntries('ssi', [
-            ['ss', 1],
-            ['ssi', 1],
-            ['ppi', 1],
-        ]);
-
-        expectDistroEntries('si', [
-            ['ss', 1],
-            ['ssi', 1],
-            ['ppi', 1],
-        ]);
-
-        expectDistroEntries('sis', [
-            ['si', 1],
-            ['sip', 1],
-        ]);
-
-        expectDistroEntries('sip', [
-            ['pi', 1],
-        ]);
-
-        expectDistroEntries('ip', [
-            ['pi', 1],
-        ]);
-
-        expectDistroEntries('ppi', [
-            [null, 1],
-        ]);
-
-        expectDistroEntries('pi', [
-            [null, 1],
-        ]);
     });
 
     function expectDistroEntries(
         firstSubword: string | null,
         expectedDistroEntries: [string | null, number][]
     ) {
-        const nullDistro = analyzer.subwordFollowingFrequency.get(firstSubword) as ProbabilityDistro<string | null>;
+        const nullDistro = analyzer.getDistro(firstSubword);
         const distroEntries = [...nullDistro.tallies.entries()];
 
         expect(distroEntries).toEqual(expectedDistroEntries);

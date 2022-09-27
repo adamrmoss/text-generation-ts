@@ -9,24 +9,40 @@ describe('ProbabilityDistro', () =>
     
     beforeEach(() =>
     {
-        chance = new Chance(1553);
-        distro = new ProbabilityDistro(chance);
+        chance = new Chance(1517);
+        distro = new ProbabilityDistro();
     });
 
-    it('counts several tallies', () =>
+    describe('with several tallies', () =>
     {
-        distro.tally('was');
-        distro.tally('twas');
-        distro.tally('night');
-        distro.tally('twas');
+        beforeEach(() =>
+        {
+            distro.tally('was');
+            distro.tally('twas');
+            distro.tally('night');
+            distro.tally('twas');
+        });
 
-        const tallies = [...distro.tallies.entries()];
+        it('counts the tallies', () =>
+        {
+            const tallies = [...distro.tallies.entries()];
 
-        const expectedTallies: [string, number][] = [
-            ['was', 1],
-            ['twas', 2],
-            ['night', 1],
-        ];
-        expect(tallies).toEqual(expectedTallies);
+            const expectedTallies: [string, number][] = [
+                ['was', 1],
+                ['twas', 2],
+                ['night', 1],
+            ];
+            expect(tallies).toEqual(expectedTallies);
+        });
+    
+        it('makes good choices', () =>
+        {
+            expect(distro.getChoice(chance)).toBe('was');
+            expect(distro.getChoice(chance)).toBe('twas');
+            expect(distro.getChoice(chance)).toBe('night');
+            expect(distro.getChoice(chance)).toBe('twas');
+            expect(distro.getChoice(chance)).toBe('night');
+            expect(distro.getChoice(chance)).toBe('twas');
+        });
     });
 });
