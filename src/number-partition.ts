@@ -42,20 +42,22 @@ function getStringPartitions(text: string, min: number, max: number): StringPart
 {
     const numberPartitions = getClampedNumberPartitions(text.length, min, max);
 
-    return numberPartitions.map(partition => {
-        const partitionedString: string[] = [];
-
-        let substringStart = 0;
-        for (let i = 0; i < partition.length; i++)
+    return numberPartitions.map(partition =>
         {
-            const substringLength = partition[i];
-            partitionedString.push(text.substring(substringStart, substringStart + substringLength));
+            const partitionedString: string[] = new Array(partition.length);
 
-            substringStart += substringLength;
+            let substringStart = 0;
+            for (let i = 0; i < partition.length; i++)
+            {
+                const substringLength = partition[i];
+                partitionedString[i] = text.substring(substringStart, substringStart + substringLength);
+
+                substringStart += substringLength;
+            }
+
+            return partitionedString;
         }
-
-        return partitionedString;
-    });
+    );
 }
 
 export
@@ -63,5 +65,4 @@ export
     getClampedNumberPartitions,
     getNumberPartitions,
     getStringPartitions,
-    maximalSize,
 };

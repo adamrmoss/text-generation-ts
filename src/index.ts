@@ -4,11 +4,13 @@ import { failproofLookup } from './maps.js';
 import { getClampedNumberPartitions, getNumberPartitions, getStringPartitions } from './number-partition.js';
 import { ProbabilityDistro } from './probability-distro.js';
 import { SetWithEquality } from './set-with-equality.js';
+import { capitalize } from './strings.js';
 import { normalizeWord, WordAnalyzer } from './word-analyzer.js';
 import { WordGenerator } from './word-generator.js';
 
 export
 {
+    capitalize,
     failproofLookup,
     getClampedNumberPartitions,
     getNumberPartitions,

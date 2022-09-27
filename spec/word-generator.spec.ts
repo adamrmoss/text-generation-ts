@@ -22,13 +22,22 @@ describe('WordGenerator', () =>
         {
             const sampleStates =
             [
-                'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Carolina', 'Colorado',
-                'Connecticut', 'Dakota', 'Delaware', 'Florida', 'Georgia', 'Hampshire', 'Hawaii',
-                'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Jersey', 'Kansas', 'Kentucky', 'Louisiana',
-                'Maine', 'Maryland', 'Massachusetts', 'Mexico', 'Michigan', 'Minnesota', 'Mississippi',
-                'Missouri', 'Montana', 'Nebraska', 'Nevada', 'Ohio', 'Oklahoma', 'Oregon',
-                'Pennsylvania', 'Rhode', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia',
-                'Washington', 'Wisconsin', 'Wyoming', 'York'
+                'Alabama',       'Alaska',      'Arizona',
+                'Arkansas',      'California',  'Carolina',
+                'Colorado',      'Connecticut', 'Dakota',
+                'Delaware',      'Florida',     'Georgia',
+                'Hampshire',     'Hawaii',      'Idaho',
+                'Illinois',      'Indiana',     'Iowa',
+                'Jersey',        'Kansas',      'Kentucky',
+                'Louisiana',     'Maine',       'Maryland',
+                'Massachusetts', 'Mexico',      'Michigan',
+                'Minnesota',     'Mississippi', 'Missouri',
+                'Montana',       'Nebraska',    'Nevada',
+                'Ohio',          'Oklahoma',    'Oregon',
+                'Pennsylvania',  'Rhode',       'Tennessee',
+                'Texas',         'Utah',        'Vermont',
+                'Virginia',      'Washington',  'Wisconsin',
+                'Wyoming',       'York'
             ];
 
             analyzer = new WordAnalyzer(2, 4);
@@ -41,15 +50,23 @@ describe('WordGenerator', () =>
             const generatedStates = generateNames(50);
 
             const expectedStates = [
-                'Tennecticut', 'Hampshington', 'Connessee', 'Ma', 'Wisconsington', 'Minnebraska',
-                'Massippi', 'Nebraskansas', 'Pennsas', 'Tennesota', 'Mexiconnecticut', 'Georegon',
-                'Arkansylvania', 'Connessachusetts','Missippi', 'Loraska', 'Wisconnecticut',
-                'Alaskansas', 'Pennsington', 'Wiscon', 'Marylaware', 'Mississiana',
-                'Mexicolouisissippi', 'Connebraska', 'Pennesota', 'Arkan', 'Pennessee', 'Ware',
-                'Mexiconnesota', 'Connesota', 'Ut', 'Missississippi', 'Connsylvania', 'Louissippi',
-                'Minnebras', 'Nebrado', 'Marylawashington', 'Illinoisiana', 'Virgington', 'Co',
-                'Mont', 'Da', 'Missachusetts', 'Washigan', 'Lorado', 'Louis', 'Massouri',
-                'Massissippi', 'Delahoma', 'Vermontucky'
+                'Tennecticut',      'Hampshington',       'Connessee',
+                'Ma',               'Wisconsington',      'Minnebraska',
+                'Massippi',         'Nebraskansas',       'Pennsas',
+                'Tennesota',        'Mexiconnecticut',    'Georegon',
+                'Arkansylvania',    'Connessachusetts',   'Missippi',
+                'Loraska',          'Wisconnecticut',     'Alaskansas',
+                'Pennsington',      'Wiscon',             'Marylaware',
+                'Mississiana',      'Mexicolouisissippi', 'Connebraska',
+                'Pennesota',        'Arkan',              'Pennessee',
+                'Ware',             'Mexiconnesota',      'Connesota',
+                'Ut',               'Missississippi',     'Connsylvania',
+                'Louissippi',       'Minnebras',          'Nebrado',
+                'Marylawashington', 'Illinoisiana',       'Virgington',
+                'Co',               'Mont',               'Da',
+                'Missachusetts',    'Washigan',           'Lorado',
+                'Louis',            'Massouri',           'Massissippi',
+                'Delahoma',         'Vermontucky'
             ];
 
             expect(generatedStates).toEqual(expectedStates);
@@ -62,12 +79,20 @@ describe('WordGenerator', () =>
         {
             const sampleNames =
             [
-                'Aaron', 'Adam', 'Alan', 'Alex', 'Andrew', 'Anthony', 'Austin', 'Brendan', 'Brent',
-                'Bryan', 'Charlie', 'Chris', 'Doug', 'Emory', 'Jace', 'James', 'Jason', 'Jennifer',
-                'Jessica', 'Jim', 'John', 'Kene', 'Kenny', 'Keshav', 'Kevin', 'Kyle', 'Lynette',
-                'Mark', 'Matthew', 'Michael', 'Mit', 'Prabu', 'Randall', 'Ricardo', 'Richard',
-                'Robert', 'Rodney', 'Roya', 'Ryan', 'Sharique', 'Shawn', 'Skipp', 'Steve', 'Steven',
-                'Tavares', 'Tej', 'Tim', 'Todd', 'Tom', 'Trent', 'Will', 'Wright', 'Yakov'
+                'Aaron',   'Adam',     'Alan',    'Alex',
+                'Andrew',  'Anthony',  'Austin',  'Brendan',
+                'Brent',   'Bryan',    'Charlie', 'Chris',
+                'Doug',    'Emory',    'Jace',    'James',
+                'Jason',   'Jennifer', 'Jessica', 'Jim',
+                'John',    'Kene',     'Kenny',   'Keshav',
+                'Kevin',   'Kyle',     'Lynette', 'Mark',
+                'Matthew', 'Michael',  'Mit',     'Prabu',
+                'Randall', 'Ricardo',  'Richard', 'Robert',
+                'Rodney',  'Roya',     'Ryan',    'Sharique',
+                'Shawn',   'Skipp',    'Steve',   'Steven',
+                'Tavares', 'Tej',      'Tim',     'Todd',
+                'Tom',     'Trent',    'Will',    'Wright',
+                'Yakov'
             ];
 
             analyzer = new WordAnalyzer(2, 4);
@@ -81,13 +106,23 @@ describe('WordGenerator', () =>
 
             const expectedNames =
             [
-                'Micharlie', 'Charique', 'Austeve', 'Ry', 'Matthony', 'Sharicardo', 'Michard',
-                'Rique', 'Ryanthony', 'Bren', 'Shav', 'Stevendan', 'Shardoug', 'Chael', 'Do',
-                'Ricares', 'Stin', 'Kesharique', 'Chard', 'An', 'Kenette', 'Shares', 'Richarlie',
-                'Randan', 'Tavarique', 'Sharica', 'Sharlie', 'Michris', 'Austeven', 'Rica',
-                'Brendanthony', 'Ya', 'Brendall', 'Ryandrew', 'Jessicardo', 'Richris', 'Lyne',
-                'Alandrew', 'Anthew', 'Sharichris', 'Shardo', 'Brendandrew', 'Royakov', 'Bryandrew',
-                'Richael', 'Alanthony', 'Emoryan', 'Ricarique', 'Keshares', 'Emoryandrew'
+                'Micharlie',    'Charique',    'Austeve',
+                'Ry',           'Matthony',    'Sharicardo',
+                'Michard',      'Rique',       'Ryanthony',
+                'Bren',         'Shav',        'Stevendan',
+                'Shardoug',     'Chael',       'Do',
+                'Ricares',      'Stin',        'Kesharique',
+                'Chard',        'An',          'Kenette',
+                'Shares',       'Richarlie',   'Randan',
+                'Tavarique',    'Sharica',     'Sharlie',
+                'Michris',      'Austeven',    'Rica',
+                'Brendanthony', 'Ya',          'Brendall',
+                'Ryandrew',     'Jessicardo',  'Richris',
+                'Lyne',         'Alandrew',    'Anthew',
+                'Sharichris',   'Shardo',      'Brendandrew',
+                'Royakov',      'Bryandrew',   'Richael',
+                'Alanthony',    'Emoryan',     'Ricarique',
+                'Keshares',     'Emoryandrew'
             ];
 
             expect(generatedNames).toEqual(expectedNames);
@@ -100,15 +135,24 @@ describe('WordGenerator', () =>
         {
             const sampleContinents =
             [
-                'Acheron', 'Africa', 'America', 'Arborea', 'Arcadia', 'Arctica', 'Asgard', 'Asia',
-                'Atlantica', 'Atlantis', 'Australia', 'Avalonia', 'Baltica', 'Caledonia',
-                'California', 'Celestia', 'China', 'Cimmeria', 'Columbia', 'Ecotopia', 
-                'Elysium', 'Eriador', 'Europa', 'Freedonia', 'Gondwana',  'Hyrule', 'India',
-                'Islandia', 'Kalaharia', 'Kazakhstania', 'Kenorland', 'Kerguelia', 'Kumaria',
-                'Laurasia', 'Laurentia', 'Lemuria', 'Limbo', 'Narnia', 'Northumbria', 'Oceania',
-                'Pacifica', 'Pangaea', 'Pannotia', 'Persia', 'Rodinia', 'Siberia', 'Vaalbara',
-                'Zealandia'
+                'Acheron',   'Africa',    'America',
+                'Arborea',   'Arcadia',   'Arctica',
+                'Asgard',    'Asia',      'Atlantica',
+                'Atlantis',  'Australia', 'Avalonia',
+                'Baltica',   'Caledonia', 'California',
+                'Celestia',  'China',     'Cimmeria',
+                'Columbia',  'Ecotopia',  'Elysium',
+                'Eriador',   'Europa',    'Freedonia',
+                'Gondwana',  'Hyrule',    'India',
+                'Islandia',  'Kalaharia', 'Kazakhstania',
+                'Kenorland', 'Kerguelia', 'Kumaria',
+                'Laurasia',  'Laurentia', 'Lemuria',
+                'Limbo',     'Narnia',    'Northumbria',
+                'Oceania',   'Pacifica',  'Pangaea',
+                'Pannotia',  'Persia',    'Rodinia',
+                'Siberia',   'Vaalbara',  'Zealandia'
             ];
+            console.log(sampleContinents);
 
             analyzer = new WordAnalyzer(2, 5);
             analyzer.analyzeWords(sampleContinents);

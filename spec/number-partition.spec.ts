@@ -100,6 +100,14 @@ describe('getClampedNumberPartitions', () =>
             expect(getClampedNumberPartitions(8, 2, 3)).toEqual(expectedPartitions);
         });
     });
+
+    describe('(5, 3, 4)', () =>
+    {
+        it('should be []', () =>
+        {
+            expect(getClampedNumberPartitions(5, 3, 4)).toEqual([]);
+        });
+    });
 });
 
 describe('getStringPartitions', () =>

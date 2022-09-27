@@ -1,7 +1,6 @@
 import { Chance } from 'chance';
 
-import { ProbabilityDistro } from "./probability-distro.js";
-import { WordAnalyzer } from "./word-analyzer.js";
+import { WordAnalyzer } from './word-analyzer.js';
 
 class WordGenerator
 {
