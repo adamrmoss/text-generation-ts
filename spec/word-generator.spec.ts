@@ -152,7 +152,6 @@ describe('WordGenerator', () =>
                 'Pannotia',  'Persia',    'Rodinia',
                 'Siberia',   'Vaalbara',  'Zealandia'
             ];
-            console.log(sampleContinents);
 
             analyzer = new WordAnalyzer(2, 5);
             analyzer.analyzeWords(sampleContinents);

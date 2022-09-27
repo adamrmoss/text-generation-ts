@@ -1,7 +1,11 @@
 {
     "name": "text-generation",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Procedural generation of text using Markov n-gram language model",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/adamrmoss/text-generation-ts.git"
+    },
     "keywords": [
         "procedural",
         "text",
