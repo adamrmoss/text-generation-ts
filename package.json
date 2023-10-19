@@ -25,8 +25,8 @@
     "scripts": {
         "prepublishOnly": "npm run build",
         "build": "rm -rf dist && tsc --project ./tsconfig.json",
-        "test": "npx ts-node --project ./tsconfig-test.json spec/support/run-tests.ts -randomized",
-        "test-itemized": "npx ts-node --project ./tsconfig-test.json spec/support/run-tests.ts -itemized"
+        "test": "npx tsx --tsconfig ./tsconfig-test.json spec/support/run-tests.ts -randomized",
+        "test-itemized": "npx tsx --tsconfig ./tsconfig-test.json spec/support/run-tests.ts -itemized"
     },
     "author": {
         "name": "Adam R Moss"
@@ -44,7 +44,7 @@
         "@types/jasmine": "^4.3.0",
         "jasmine": "^4.4.0",
         "jasmine-itemized-console-reporter": "^0.3.2",
-        "ts-node": "^10.9.1",
-        "typescript": "^4.8.3"
+        "tsx": "^3.14.0",
+        "typescript": "^5.2.2"
     }
 }
